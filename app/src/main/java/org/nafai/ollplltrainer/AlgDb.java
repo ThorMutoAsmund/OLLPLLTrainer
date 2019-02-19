@@ -2,6 +2,9 @@ package org.nafai.ollplltrainer;
 
 import java.util.ArrayList;
 
+import static org.nafai.ollplltrainer.AlgClass.OLL;
+import static org.nafai.ollplltrainer.AlgClass.PLL;
+
 /**
  * Created by thora_000 on 19/12/2017.
  */
@@ -27,26 +30,39 @@ public class AlgDb {
         this.PLLs = new ArrayList<Alg>();
         this.PLLGroups = new ArrayList<AlgGroup>();
 
-        AddOLLs();
-        AddOLLGroups();
-        AddPLLs();
-        AddPLLGroups();
+        addOLLs();
+        addOLLGroups();
+        addPLLs();
+        addPLLGroups();
 
-        this.OLLIds = GetIds(this.OLLs);
-        this.PLLIds = GetIds(this.PLLs);
+        this.OLLIds = getIds(this.OLLs);
+        this.PLLIds = getIds(this.PLLs);
     }
 
-    public Alg FindAlg(ArrayList<Alg> algs, String id) {
-        for (Alg alg : algs) {
-            if (alg.Id == id) {
-                return alg;
+    public Alg findAlg(AlgClass algClass, String id) {
+        ArrayList<Alg> algs = null;
+        switch (algClass)
+        {
+            case OLL:
+                algs = AlgDb.Instance.OLLs;
+                break;
+            case PLL:
+                algs = AlgDb.Instance.PLLs;
+                break;
+        }
+
+        if (algs != null) {
+            for (Alg alg : algs) {
+                if (alg.Id.equals(id)) {
+                    return alg;
+                }
             }
         }
 
         return null;
     }
 
-    private ArrayList<String> GetIds(ArrayList<Alg> algs) {
+    private ArrayList<String> getIds(ArrayList<Alg> algs) {
         ArrayList<String> ids = new ArrayList<String>();
         for (Alg alg : algs) {
             ids.add(alg.Id);
@@ -55,8 +71,8 @@ public class AlgDb {
         return ids;
     }
 
-    private void AddOLLs() {
-        AddAlg(this.OLLs,"27",
+    private void addOLLs() {
+        addAlg(this.OLLs,"27",
                 "S, Sune, Swimming Left",
                 "OCLL, OLL",
                 "(U L U' R') (U L' U' R)",
@@ -68,7 +84,7 @@ public class AlgDb {
                 "U2 r2 U R' U' L' U R U' r' (x')",
                 "y' U R U' L' U R' U' L");
 
-        AddAlg(this.OLLs,"26",
+        addAlg(this.OLLs,"26",
                 "-S, Antisune, Swimming Right",
                 "OCLL, OLL",
                 "(R' U L U') (R U L')",
@@ -80,7 +96,7 @@ public class AlgDb {
                 "y' L' U R U' L U R'",
                 "y' R U2 R' U2' R' F R2 U' R' U' R U R' F'");
 
-        AddAlg(this.OLLs,"21",
+        addAlg(this.OLLs,"21",
                 "H, Double Sune, Flip, Cross",
                 "OCLL, OLL",
                 "R U R' U R U' R' U R U2 R'",
@@ -94,7 +110,7 @@ public class AlgDb {
                 "y (R' U R U) (R' U R U') (R' U R U') R' U' R U2 R' U R",
                 "L' U2 M' (y) R U2 R U2 R' U2 (y') l");
 
-        AddAlg(this.OLLs,"22",
+        addAlg(this.OLLs,"22",
                 "Pi, Bruno, Wheel, T-shirt",
                 "OCLL, OLL",
                 "R U2 R2' U' R2 U' R2' U2 R",
@@ -110,7 +126,7 @@ public class AlgDb {
                 "R U R' U' R' F R2 U R' U' R U R' U' F'",
                 "(R' U L U' R U L') U2 (R' U L U' R U L')");
 
-        AddAlg(this.OLLs,"23",
+        addAlg(this.OLLs,"23",
                 "U, Headlights, Superman",
                 "OCLL, OLL",
                 "R2' D' R U2 R' D R U2 R",
@@ -131,7 +147,7 @@ public class AlgDb {
                 "(y2)R U R' U R U2 R2' U' R U' R' U2' R",
                 "(R U R' U')3 (R' F R F')3");
 
-        AddAlg(this.OLLs,"24",
+        addAlg(this.OLLs,"24",
                 "T, Chameleon, Shark, Hammerhead, Little Horse, Stingray",
                 "OCLL, OLL",
                 "L F R' F' L' F R F'",
@@ -152,7 +168,7 @@ public class AlgDb {
                 "(y) R U R D R' U' R D' R2",
                 "(y') R' U' R' D' R U R' D R2");
 
-        AddAlg(this.OLLs,"25",
+        addAlg(this.OLLs,"25",
                 "L, Bowtie, Triple-Sune, Side-winder, Diagonals, Spaceship",
                 "OCLL, OLL",
                 "R U2 R' U' (R U R' U') (R U R' U') R U' R'",
@@ -185,7 +201,7 @@ public class AlgDb {
                 "R2 D' R U' R' D R U R",
                 "(y') R2 D R' U R D' R' U' R'");
 
-        AddAlg(this.OLLs,"1",
+        addAlg(this.OLLs,"1",
                 "Runway, Blank",
                 "OLL",
                 "(R U2) (R2' F R F' U2') (R' F R F')",
@@ -194,7 +210,7 @@ public class AlgDb {
                 "L' U2 L2 F' L' F U2 L F' L' F",
                 "(y) R U' R2 D' r U' r' D R2 U R'");
 
-        AddAlg(this.OLLs,"2",
+        addAlg(this.OLLs,"2",
                 "Zamboni",
                 "OLL",
                 "F (R U R' U') F' f (R U R' U') f'",
@@ -205,7 +221,7 @@ public class AlgDb {
                 "(y2) F R' F' R U R2 B' R' B U' R'",
                 "(y2) (F R' F' R) U2 F R' F' R2 U2 R'");
 
-        AddAlg(this.OLLs,"3",
+        addAlg(this.OLLs,"3",
                 "Anti-Nazi, Anti-Mouse",
                 "OLL",
                 "(y) f (R U R' U') f' U' F (R U R' U') F'",
@@ -214,7 +230,7 @@ public class AlgDb {
                 "(y2) r' R2 U R' U r U2 r' U M'",
                 "(M'U) (r'U2 r U) (R' U R2 r')");
 
-        AddAlg(this.OLLs,"4",
+        addAlg(this.OLLs,"4",
                 "Nazi, Mouse",
                 "OLL",
                 "f (R U R' U') f' U F (R U R' U') F'",
@@ -223,7 +239,7 @@ public class AlgDb {
                 "(y) M U' r U2' r' U' R U' R' M'",
                 "l L2 U' L U' l' U2 l U' M'");
 
-        AddAlg(this.OLLs,"17",
+        addAlg(this.OLLs,"17",
                 "Slash, Diagonal",
                 "OLL",
                 "R U R' U (R' F R F') U2 (R' F R F')",
@@ -233,7 +249,7 @@ public class AlgDb {
                 "(F' R U2 r' d) R2 U' F R2 f' R",
                 "(y2) (F R' F' R2 r' U) (R U' R' U' M')");
 
-        AddAlg(this.OLLs,"18",
+        addAlg(this.OLLs,"18",
                 "Crown",
                 "OLL",
                 "(y') r U R' U R U2 r2' U' R U' R' U2 r",
@@ -246,7 +262,7 @@ public class AlgDb {
                 "(y2) (F R U' R' U' R U R' F') U' (F R U R' U' F')",
                 "(y') (M' U M U2 M' U M) U (f R U R' U' f')");
 
-        AddAlg(this.OLLs,"19",
+        addAlg(this.OLLs,"19",
                 "Bunny",
                 "OLL",
                 "r' R U R U R' U' r R2' F R F'",
@@ -257,7 +273,7 @@ public class AlgDb {
                 "(y2) M' U' R' U' R U r' R2 B' R' B",
                 "(y2) M' U L U L' U' l L2 B L B'");
 
-        AddAlg(this.OLLs,"31",
+        addAlg(this.OLLs,"31",
                 "Couch",
                 "OLL",
                 "(y2) R' U' F U R U' R' F' R",
@@ -270,7 +286,7 @@ public class AlgDb {
                 "(y) M' U' L' U' L F U F' L' U l",
                 "(y2) (L' U' L U) (R U R' U') M' U' L' U2 R U' (x')");
 
-        AddAlg(this.OLLs,"32",
+        addAlg(this.OLLs,"32",
                 "Anti-Couch",
                 "OLL",
                 "R U B' U' R' U R B R'",
@@ -286,7 +302,7 @@ public class AlgDb {
                 "(y2) L U F' U' L' U L F L'",
                 "(y2) (R U R' U') (L' U' L U) M' U R U2 L' U x'");
 
-        AddAlg(this.OLLs,"43",
+        addAlg(this.OLLs,"43",
                 "Anti-P",
                 "OLL",
                 "(y) R' U' F' U F R",
@@ -297,7 +313,7 @@ public class AlgDb {
                 "(y2) R' U' F R' F' R U R",
                 "(y') R U l' U' r' U' r U x'");
 
-        AddAlg(this.OLLs,"44",
+        addAlg(this.OLLs,"44",
                 "P",
                 "OLL",
                 "f (R U R' U') f'",
@@ -305,7 +321,7 @@ public class AlgDb {
                 "(y) R U y' L U' L' B'",
                 "(y) F U R' F R F' U' F'");
 
-        AddAlg(this.OLLs,"36",
+        addAlg(this.OLLs,"36",
                 "Sea-Mew, Wario, Anti-Moustache",
                 "OLL",
                 "R' U' R U' R' U R U R y R' F' R",
@@ -316,14 +332,14 @@ public class AlgDb {
                 "R U' R' U' F (U R U' R') F' R U2 R'",
                 "(y2) (F R' F' R) U (R U R' U')2 R U' R'");
 
-        AddAlg(this.OLLs,"38",
+        addAlg(this.OLLs,"38",
                 "Mario, Moustache",
                 "OLL",
                 "(y2) (R U R' U) (R U' R' U') (R' F R F')",
                 "L U L' U L U' L' U' L' B L B'",
                 "(L' U' L U) y' (R U2 R' U') y (L' U' L)");
 
-        AddAlg(this.OLLs,"48",
+        addAlg(this.OLLs,"48",
                 "Breakneck",
                 "OLL",
                 "F (R U R' U') (R U R' U') F'",
@@ -331,14 +347,14 @@ public class AlgDb {
                 "(y) r U2 R' U' R U' r' R' U' R U' R' U2 R",
                 "(y') r' U' R U' R' U2 r R U2 R' U' R U' R'");
 
-        AddAlg(this.OLLs,"47",
+        addAlg(this.OLLs,"47",
                 "Anti-Breakneck",
                 "OLL",
                 "F' (L' U' L U) (L' U' L U) F",
                 "(y') r U R' U R U2 r' R' U2 R U R' U R",
                 "R' U' x (R' U R U')2 x' U R");
 
-        AddAlg(this.OLLs,"53",
+        addAlg(this.OLLs,"53",
                 "Frying Pan",
                 "OLL",
                 "l' U' L U' L' U L U' L' U2 l",
@@ -348,7 +364,7 @@ public class AlgDb {
                 "r U R' U R U2 r' R U R' U R U2 R'",
                 "F R U R' U' F' R U R' U' R' F R F'");
 
-        AddAlg(this.OLLs,"54",
+        addAlg(this.OLLs,"54",
                 "Anti-Frying Pan",
                 "OLL",
                 "r U R' U R U' R' U R U2 r'",
@@ -359,7 +375,7 @@ public class AlgDb {
                 "(y) f (R U R' U') (R U R' U') f' F (R U R' U') F'",
                 "(y') r U2 R' U' R U R' U' R U' r'");
 
-        AddAlg(this.OLLs,"49",
+        addAlg(this.OLLs,"49",
                 "Right back squeezy",
                 "OLL",
                 "R B' R2 F R2 B R2 F' R",
@@ -370,7 +386,7 @@ public class AlgDb {
                 "(y') x' U l' U2 R U2 l U2 R' U x",
                 "(y') R' U2 R U R' U R F R U R' U' F'");
 
-        AddAlg(this.OLLs,"50",
+        addAlg(this.OLLs,"50",
                 "Right front squeezy",
                 "OLL",
                 "(y2) R' F R2 B' R2 F' R2 B R'",
@@ -385,7 +401,7 @@ public class AlgDb {
                 "(y) x' U' r U2 L' U2 r' U2 L U' x",
                 "(y') F R U' R' U' R U R' U R U' R' F'");
 
-        AddAlg(this.OLLs,"34",
+        addAlg(this.OLLs,"34",
                 "City (C and T)",
                 "OLL",
                 "(R U R' U') x D' R' U R E' z'",
@@ -399,7 +415,7 @@ public class AlgDb {
                 "(y2) R U2 R' F R U R' U' F' U R U R'",
                 "(R U R' U') y l' U' L U M");
 
-        AddAlg(this.OLLs,"46",
+        addAlg(this.OLLs,"46",
                 "Seein' Headlights (C and headlights)",
                 "OLL",
                 "R' U' R' F R F' U R",
@@ -408,7 +424,7 @@ public class AlgDb {
                 "R U l U' R' U F' l'",
                 "(y2) L F U' R U R' F' L'");
 
-        AddAlg(this.OLLs,"33",
+        addAlg(this.OLLs,"33",
                 "Tying Shoelaces, Key",
                 "OLL",
                 "(R U R' U') (R' F R F')",
@@ -416,7 +432,7 @@ public class AlgDb {
                 "R' U' R U l U' R' U x",
                 "R U R' F' U' F R U' R'");
 
-        AddAlg(this.OLLs,"45",
+        addAlg(this.OLLs,"45",
                 "Suit up, T",
                 "OLL",
                 "F (R U R' U') F'",
@@ -424,7 +440,7 @@ public class AlgDb {
                 "(y2) f (U R U' R') f'",
                 "(y2) F' (L' U' L U) F");
 
-        AddAlg(this.OLLs,"55",
+        addAlg(this.OLLs,"55",
                 "Highway, Freeway",
                 "OLL",
                 "(y) R' F (R U R U') R2 F' R2 U' R' (U R U R')",
@@ -443,7 +459,7 @@ public class AlgDb {
                 "(y) F (R U R' U') S (R U R' U') S' (R U R' U') F'",
                 "R' U' (F R' F' R) F (U R U' R') F' R");
 
-        AddAlg(this.OLLs,"56",
+        addAlg(this.OLLs,"56",
                 "Streetlights, Dead Man",
                 "OLL",
                 "r U r' U R U' R' U R U' R' r U' r'",
@@ -454,14 +470,14 @@ public class AlgDb {
                 "F R U R' U' F' r U R' U' r' F R F'",
                 "l U l' (U L U' L')2 l U' l'");
 
-        AddAlg(this.OLLs,"51",
+        addAlg(this.OLLs,"51",
                 "Bottlecap, Ant",
                 "OLL",
                 "F U R U' R' U R U' R' F'",
                 "(y2) f R U R' U' R U R' U' f'",
                 "(y') R' U2 R U R' F R' F' R U R");
 
-        AddAlg(this.OLLs,"52",
+        addAlg(this.OLLs,"52",
                 "Rice Cooker",
                 "OLL",
                 "R' U' R U' R' d R' U R B",
@@ -472,7 +488,7 @@ public class AlgDb {
                 "(y) (r U2 R' U' R U' r') (F R U R' U' F')",
                 "(y') F R U R' U F' U' F U' F'");
 
-        AddAlg(this.OLLs,"5",
+        addAlg(this.OLLs,"5",
                 "Right back wide antisune (RBWAS), Lefty Square",
                 "OLL",
                 "(r' U2) (R U R' U r)",
@@ -480,13 +496,13 @@ public class AlgDb {
                 "(y2) l' U2 L U L' U l",
                 "(y) x' U' l2 U l F' l U");
 
-        AddAlg(this.OLLs,"6",
+        addAlg(this.OLLs,"6",
                 "Right front wide antisune (RFWAS), Righty Square",
                 "OLL",
                 "(y2) r U2 R' U' R U' r'",
                 "l U2 L' U' L U' l'");
 
-        AddAlg(this.OLLs,"39",
+        addAlg(this.OLLs,"39",
                 "Fung",
                 "OLL",
                 "L F' (L' U' L U) F U' L'",
@@ -497,14 +513,14 @@ public class AlgDb {
                 "(y2) x' R U' x R' U' R U x' U F' l'",
                 "(y2) F R U R' U' R U R' U' R U' R' U' R U R' F'");
 
-        AddAlg(this.OLLs,"40",
+        addAlg(this.OLLs,"40",
                 "Anti-Fung",
                 "OLL",
                 "R' F (R U R' U') F' U R",
                 "(y2) f R' F' R U R U' R' S'",
                 "(y2) L' B L U L' U' B' U L");
 
-        AddAlg(this.OLLs,"7",
+        addAlg(this.OLLs,"7",
                 "Lightning, Wide Sune",
                 "OLL",
                 "r U R' U R U2 r'",
@@ -512,7 +528,7 @@ public class AlgDb {
                 "F R' F' R U2 R U2 R'",
                 "L' U2 L U2 L F' L' F");
 
-        AddAlg(this.OLLs,"8",
+        addAlg(this.OLLs,"8",
                 "Left Wide Sune (LWS), Reverse Lightning",
                 "OLL",
                 "l' U' L U' L' U2 l",
@@ -520,7 +536,7 @@ public class AlgDb {
                 "(y') B' R' F R' F' R2 B",
                 "R U2 R' U2 R' F R F'");
 
-        AddAlg(this.OLLs,"11",
+        addAlg(this.OLLs,"11",
                 "Downstairs",
                 "OLL",
                 "F' (L' U' L U) F y F (R U R' U') F'",
@@ -528,7 +544,7 @@ public class AlgDb {
                 "(y) r U R' U R' F R F' R U2 r'",
                 "(y') r' R2 U R' U R U2 R' U M'");
 
-        AddAlg(this.OLLs,"12",
+        addAlg(this.OLLs,"12",
                 "Upstairs",
                 "OLL",
                 "F (R U R' U') F' U F (R U R' U') F'",
@@ -536,7 +552,7 @@ public class AlgDb {
                 "(y') r R2' U' R U' R' U2 R U' R r'",
                 "(y') M' R' U' R U' R' U2 R U' M");
 
-        AddAlg(this.OLLs,"9",
+        addAlg(this.OLLs,"9",
                 "Kite",
                 "OLL",
                 "(y') (R U R' U') R' F R2 U R' U' F'",
@@ -546,7 +562,7 @@ public class AlgDb {
                 "R' U' R U' R' U R' F R F' U R",
                 "(y2) R U2 R' M' U' R U' R' U M");
 
-        AddAlg(this.OLLs,"10",
+        addAlg(this.OLLs,"10",
                 "Anti-Kite",
                 "OLL",
                 "(y') R U R' y R' F R U' R' F' R",
@@ -555,7 +571,7 @@ public class AlgDb {
                 "(y') (R' U' R U) R B' R2 U' R U B",
                 "(R' M' U2) (R U R' U) (R U R r')");
 
-        AddAlg(this.OLLs,"35",
+        addAlg(this.OLLs,"35",
                 "Fish Salad",
                 "OLL",
                 "R U2 R2' F R F' R U2 R'",
@@ -566,7 +582,7 @@ public class AlgDb {
                 "(y) R2 D r' U r D' r' U' R' U M'",
                 "f (R U R' U') f' (R U R' U R U2 R')");
 
-        AddAlg(this.OLLs,"37",
+        addAlg(this.OLLs,"37",
                 "Mounted Fish, Untying Shoelaces",
                 "OLL",
                 "(y) F R U' R' U' R U R' F'",
@@ -581,7 +597,7 @@ public class AlgDb {
                 "(y') r2 D' r U' r' D r U r",
                 "(y2) M' U' L' U l y' U R U' R'");
 
-        AddAlg(this.OLLs,"13",
+        addAlg(this.OLLs,"13",
                 "Gun, Trigger",
                 "OLL",
                 "F U R U' R2 F' R U R U' R'",
@@ -591,7 +607,7 @@ public class AlgDb {
                 "(y2) f R U R2 U' R' U R U' f'",
                 "R U2 L' U' L U2 R' U' L F' L' F");
 
-        AddAlg(this.OLLs,"14",
+        addAlg(this.OLLs,"14",
                 "Anti-Gun, Anti-Trigger",
                 "OLL",
                 "R' F R U R' F' R y' R U' R'",
@@ -602,21 +618,21 @@ public class AlgDb {
                 "(y2) r' U r U r' U' r y R U' R'",
                 "L' U2 R U R' U2 L U R' F R F'");
 
-        AddAlg(this.OLLs,"15",
+        addAlg(this.OLLs,"15",
                 "Squeegee",
                 "OLL",
                 "(y2) l' U' l (L' U' L U) l' U l",
                 "(y2) R' F' R L' U' L U R' F R",
                 "r' U' r R' U' R U r' U r");
 
-        AddAlg(this.OLLs,"16",
+        addAlg(this.OLLs,"16",
                 "Anti-Squeegee",
                 "OLL",
                 "(y2) r U r' (R U R' U') r U' r'",
                 "(y2) r U M U R' U' r U' r'",
                 "l U l' L U L' U' l U' l'");
 
-        AddAlg(this.OLLs,"29",
+        addAlg(this.OLLs,"29",
                 "Spotted Chameleon",
                 "OLL",
                 "M U (R U R' U') (R' F R F') M'",
@@ -630,7 +646,7 @@ public class AlgDb {
                 "x' U' R' U L' U' R2 U' R' U2 r",
                 "(y') (R U R' U R U2 R') U (R U R' U') (R' F R F')");
 
-        AddAlg(this.OLLs,"30",
+        addAlg(this.OLLs,"30",
                 "Anti-Spotted Chameleon",
                 "OLL",
                 "r' U2 R U R' U r R U2 R' U' R U' R'",
@@ -652,7 +668,7 @@ public class AlgDb {
                 "(y') r' D' r U' r' D r2 U' r' U r U r'",
                 "(y2) r' D' r U r' D r U' r U R' U' M");
 
-        AddAlg(this.OLLs,"41",
+        addAlg(this.OLLs,"41",
                 "Awkward Fish, Dalmation",
                 "OLL",
                 "R U' R' U2 R U y R U' R' y' U' R'",
@@ -666,7 +682,7 @@ public class AlgDb {
                 "(y) (R B' R' B)2 R' U' R U R' U' R",
                 "(y') r U2 R' U' R U' r' U' R U R' U R U2 R'");
 
-        AddAlg(this.OLLs,"42",
+        addAlg(this.OLLs,"42",
                 "Lefty Awkward Fish, Anti-Dalmation",
                 "OLL",
                 "r' R2 y R U R' U' y' R' U M'",
@@ -681,7 +697,7 @@ public class AlgDb {
                 "(R' U' R U' R' U2 R) F (R U R' U') F'",
                 "All Corners Oriented");
 
-        AddAlg(this.OLLs,"28",
+        addAlg(this.OLLs,"28",
                 "Stealth, Arrow, Arrowhead, Fish",
                 "OLL",
                 "r U R' U' r' R U R U' R'",
@@ -713,7 +729,7 @@ public class AlgDb {
                 "(y') M U R U R' U' M' U R U' R'",
                 "R2 F2 L F L' F2 R F' R");
 
-        AddAlg(this.OLLs,"57",
+        addAlg(this.OLLs,"57",
                 "Mummy, H, I, Brick",
                 "OLL",
                 "R U R' U' M' U R U' r'",
@@ -741,7 +757,7 @@ public class AlgDb {
                 "M2 U' F2 U' M' U M2 F2 U M",
                 "F M' F U M2 U2 M2 U F' M F'");
 
-        AddAlg(this.OLLs,"20",
+        addAlg(this.OLLs,"20",
                 "X, Checkers",
                 "OLL",
                 "r' R U R U R' U' r2 R2' U R U' r'",
@@ -765,42 +781,42 @@ public class AlgDb {
                 "(M' U)4 y2 (M' U)4");
     }
 
-    private void AddOLLGroups() {
-        AddAlgGroup(OLLGroups,"Corners correct, edges flipped",
+    private void addOLLGroups() {
+        addAlgGroup(OLLGroups,"Corners correct, edges flipped",
                 "28", "57", "20");
-        AddAlgGroup(OLLGroups,"All edges flipped correctly",
+        addAlgGroup(OLLGroups,"All edges flipped correctly",
                 "21", "22", "23", "24", "25", "26", "27");
-        AddAlgGroup(OLLGroups,"No edges flipped correctly",
+        addAlgGroup(OLLGroups,"No edges flipped correctly",
                 "1", "2", "3", "4", "17", "18", "19");
-        AddAlgGroup(OLLGroups,"T-shapes",
+        addAlgGroup(OLLGroups,"T-shapes",
                 "33", "45");
-        AddAlgGroup(OLLGroups,"P-shapes",
+        addAlgGroup(OLLGroups,"P-shapes",
                 "31", "32", "43", "44");
-        AddAlgGroup(OLLGroups,"W-shapes",
+        addAlgGroup(OLLGroups,"W-shapes",
                 "36", "38");
-        AddAlgGroup(OLLGroups,"L-shapes",
+        addAlgGroup(OLLGroups,"L-shapes",
                 "47", "48", "49", "50", "53", "54");
-        AddAlgGroup(OLLGroups,"Big lightning bolts",
+        addAlgGroup(OLLGroups,"Big lightning bolts",
                 "39", "40");
-        AddAlgGroup(OLLGroups,"C-shapes",
+        addAlgGroup(OLLGroups,"C-shapes",
                 "34", "46");
-        AddAlgGroup(OLLGroups,"Squares",
+        addAlgGroup(OLLGroups,"Squares",
                 "5", "6");
-        AddAlgGroup(OLLGroups,"Small lightning bolts",
+        addAlgGroup(OLLGroups,"Small lightning bolts",
                 "7", "8", "11", "12");
-        AddAlgGroup(OLLGroups,"Fish shapes",
+        addAlgGroup(OLLGroups,"Fish shapes",
                 "9", "10", "35", "37");
-        AddAlgGroup(OLLGroups,"I-shapes",
+        addAlgGroup(OLLGroups,"I-shapes",
                 "51", "52", "55", "56");
-        AddAlgGroup(OLLGroups,"Knight move shapes",
+        addAlgGroup(OLLGroups,"Knight move shapes",
                 "13", "14", "15", "16");
-        AddAlgGroup(OLLGroups,"Awkward shapes",
+        addAlgGroup(OLLGroups,"Awkward shapes",
                 "29", "30", "41", "42");
     }
 
-    private void AddPLLs() {
+    private void addPLLs() {
 
-        AddAlg(this.PLLs,"H",
+        addAlg(this.PLLs,"H",
                 "H-PLL, X-PLL",
                 "EPLL, CPLL, PLL, ELL, ZBLL, ZZLL",
                 "M2 D S2 D2 S2 D M2",
@@ -827,7 +843,7 @@ public class AlgDb {
                 "z2 (R U R' U' D)30",
                 "M2 d S2 d2 S2 d M2");
 
-        AddAlg(this.PLLs,"Ua",
+        addAlg(this.PLLs,"Ua",
                 "U-PLL a",
                 "EPLL, PLL, ELL, ZBLL, BLD",
                 "B2 U' M U2 M' U' B2",
@@ -848,7 +864,7 @@ public class AlgDb {
                 "R U R' U' L' U' L U2 R U' R' U' L' U L",
                 "r U R' U R' U' R2 U' r' U R' U R");
 
-        AddAlg(this.PLLs,"Ub",
+        addAlg(this.PLLs,"Ub",
                 "U-PLL b",
                 "EPLL, PLL, ELL, ZBLL, BLD",
                 "B2 U M U2 M' U B2",
@@ -870,7 +886,7 @@ public class AlgDb {
                 "L' U' L U R U R' U2 L' U L U R U' R'",
                 "(y) f' (L' U' L U) f F (R U R' U') F'");
 
-        AddAlg(this.PLLs,"Z",
+        addAlg(this.PLLs,"Z",
                 "Z-PLL",
                 "EPLL, PLL, ELL, ZBLL, ZZLL",
                 "(M2' U)2 M' (U2 M2' U2) M' U2",
@@ -903,7 +919,7 @@ public class AlgDb {
                 "R U R2 U' R' F R U R U' R U' R' U' R U R' F'",
                 "L' U' L2 F (L' U' L' U' L) U2 (L F' L' U' L') U2 L");
 
-        AddAlg(this.PLLs,"Aa",
+        addAlg(this.PLLs,"Aa",
                 "A-PLL a",
                 "CPLL, PLL, L3C, L4C, ZBLL, BLD",
                 "R' F R' B2 R F' R' B2 R2",
@@ -926,7 +942,7 @@ public class AlgDb {
                 "(y') R U R' U R2 D' R U' R' D R U R U' R U' R'",
                 "L’ U’ L (R U R’ U’) L’ (U R U’ R’) U L");
 
-        AddAlg(this.PLLs,"Ab",
+        addAlg(this.PLLs,"Ab",
                 "A-PLL b",
                 "CPLL, PLL, L3C, L4C, ZBLL, BLD",
                 "R B' R F2 R' B R F2 R2",
@@ -945,7 +961,7 @@ public class AlgDb {
                 "(y) R' U' R U' R2 D R' U R D' R' U' R' U R' U R",
                 "(y’) L’ U’ (R U R’ U’) L (U R U’ R’) L’ U L");
 
-        AddAlg(this.PLLs,"E",
+        addAlg(this.PLLs,"E",
                 "E-PLL",
                 "CPLL, PLL, L4C, ZBLL, ZZLL",
                 "(y x') (R U' R' D) (R U R' D') (R U R' D) (R U' R' D') (x)",
@@ -977,7 +993,7 @@ public class AlgDb {
                 "l' U' L' U R U' L U R' U' L U R U' L' U (x')",
                 "(y) R U R D R' U R D' R' U' R D R' U' R D' R2");
 
-        AddAlg(this.PLLs,"F",
+        addAlg(this.PLLs,"F",
                 "F-PLL",
                 "PLL, ZBLL, ZZLL",
                 "(R' U R U') R2 (F' U' F U) (R F R' F') R2 U'",
@@ -1008,7 +1024,7 @@ public class AlgDb {
                 "R U' F R F' U F' U' F2 R' F' U' R' U2 R'",
                 "(y) F U' r U r' U r' F' r2 U' r' U' F' U2 F'");
 
-        AddAlg(this.PLLs,"Ga",
+        addAlg(this.PLLs,"Ga",
                 "G-PLL a",
                 "PLL, ZBLL",
                 "(y) R2 U (R' U R' U') R U' R2 (D U' R' U) R D'",
@@ -1020,7 +1036,7 @@ public class AlgDb {
                 "(y) L F2 R (F' L' F U) R' U' (F' L F' L')",
                 "(y) R2' S2 U l2' U' l2' u R2 U' r2' F2");
 
-        AddAlg(this.PLLs,"Gb",
+        addAlg(this.PLLs,"Gb",
                 "G-PLL b",
                 "PLL, ZBLL",
                 "R' U' R (y) R2 u (R' U R U' R) u' R2",
@@ -1031,7 +1047,7 @@ public class AlgDb {
                 "R2 D L2 D F2 L D R' D2 L D' R' U2",
                 "R' U' R U D' R2 U R' U R U' R U' R2 D	");
 
-        AddAlg(this.PLLs,"Gc",
+        addAlg(this.PLLs,"Gc",
                 "G-PLL c",
                 "PLL, ZBLL",
                 "(y) R2' u' (R U' R U R') u R2 (y) R U' R'",
@@ -1046,7 +1062,7 @@ public class AlgDb {
                 "(y') l' U2' L' U l F' U' L U F R' F R",
                 "(y) U F2 R2 L2 U' L2 U L2 D' L2 D R2 F2 U'");
 
-        AddAlg(this.PLLs,"Gd",
+        addAlg(this.PLLs,"Gd",
                 "G-PLL d",
                 "PLL, ZBLL",
                 "(y2) R U R' (y') R2 u' (R U' R' U R') u R2",
@@ -1059,7 +1075,7 @@ public class AlgDb {
                 "(y') R2' F' (R U R U') (R' F' R) (U2' R' U2' R') F2 R2",
                 "(y2) (R U R') F2 D' L U' L' U L' D F2 U2");
 
-        AddAlg(this.PLLs,"Ja",
+        addAlg(this.PLLs,"Ja",
                 "J-PLL a, L-perm",
                 "PLL, ZBLL, BLD",
                 "(B' U F') U2 (B U' B') U2 (F B U')",
@@ -1100,7 +1116,7 @@ public class AlgDb {
                 "(y2) r2 u' R U' R U R' u r2 (y) U' R' U' (R' U R) U2",
                 "(y2) r U' r' U' r U r D r' U' r D' r' U2 R' U' M");
 
-        AddAlg(this.PLLs,"Jb",
+        addAlg(this.PLLs,"Jb",
                 "J-PLL b",
                 "PLL, ZBLL, BLD",
                 "(B U' F) U2 (B' U B) U2 (F' B' U)",
@@ -1141,7 +1157,7 @@ public class AlgDb {
                 "r2 u R' U R' U' R u' r2 (y) U (L U L U' L') U2",
                 "R2 U F U F' R2 F U' F' R2 U' R2 U'");
 
-        AddAlg(this.PLLs,"Na",
+        addAlg(this.PLLs,"Na",
                 "N-PLL a",
                 "PLL, ZBLL, ZZLL",
                 "(L U' R U2 L' U R')2 U'",
@@ -1170,7 +1186,7 @@ public class AlgDb {
                 "(L U L' U) (R' U L U') R U2 (L' U L U2) L' (U' L U' L')",
                 "F B L' U' L U' (L' U' L F L' U' L U L F' L2 U L) U2 L' U L F' B'");
 
-        AddAlg(this.PLLs,"Nb",
+        addAlg(this.PLLs,"Nb",
                 "N-PLL b",
                 "PLL, ZBLL, ZZLL",
                 "(R' U L' U2 R U' L)2 U",
@@ -1200,7 +1216,7 @@ public class AlgDb {
                 "F' B' R U R' U (R U R' F' R U R' U' R' F R2 U' R') U2 R U' R' F B",
                 "R' U' R (y) R U' L' U R' U2 L U' L' U2 L F' U F'");
 
-        AddAlg(this.PLLs,"Ra",
+        addAlg(this.PLLs,"Ra",
                 "R-PLL a",
                 "PLL, ZBLL",
                 "R U2 R' U2 R B' R' U' R U R B R2 U",
@@ -1231,7 +1247,7 @@ public class AlgDb {
                 "(y2) R U2 l' R' U R U' l U2 R' B' R' U R U R' U' R B",
                 "R U2 R D R' U R D' R' U' R' U R U R' U");
 
-        AddAlg(this.PLLs,"Rb",
+        addAlg(this.PLLs,"Rb",
                 "R-PLL b",
                 "PLL, ZBLL",
                 "R' U2 R U2 R' F (R U R' U') R' F' R2' U'",
@@ -1263,7 +1279,7 @@ public class AlgDb {
                 "R' U2 R' D' R U' R' D R U R U' R' U' R U'",
                 "(y') (R U2 R' U' R U' R')(R U R' U' R' F R2 U' R' U' R U R' F')(R U R' U R U2 R')");
 
-        AddAlg(this.PLLs,"T",
+        addAlg(this.PLLs,"T",
                 "T-PLL",
                 "PLL, ZBLL, ZZLL, BLD",
                 "R U R' U' R' F R2 U' R' U' R U R' F'",
@@ -1289,7 +1305,7 @@ public class AlgDb {
                 "R U R' U' R' F R F' R' F R F' U' F' U F U'",
                 "(R U R' U') (R' F R F')2 (y') (x') F' (R' F R F') (x) (y)");
 
-        AddAlg(this.PLLs,"V",
+        addAlg(this.PLLs,"V",
                 "V-PLL",
                 "PLL, ZBLL",
                 "R' U R' U' B' R' B2 U' B' U B' R B R",
@@ -1316,7 +1332,7 @@ public class AlgDb {
                 "R U2 R' D R U' R U' R U R2 D R' U' R D2",
                 "(y) R U' R U (y) L D' L D L2 (y') R F R' F' R'");
 
-        AddAlg(this.PLLs,"Y",
+        addAlg(this.PLLs,"Y",
                 "Y-PLL",
                 "PLL, ZBLL, BLD",
                 "F R U' R' U' R U R' F' R U R' U' R' F R F'",
@@ -1350,10 +1366,20 @@ public class AlgDb {
                 "U F' L F L' U' L' U L U2 R U R' U' R' F R F'");
     }
 
-    private void AddPLLGroups() {
+    private void addPLLGroups() {
+        addAlgGroup(PLLGroups,"Edges only",
+                "H", "Ua", "Ub", "Z");
+        addAlgGroup(PLLGroups,"Corners only",
+                "Aa", "Ab", "E");
+        addAlgGroup(PLLGroups,"Swapping 2 adjacent corners and 2 edges",
+                "Ja", "Jb", "T", "Ra", "Rb", "F");
+        addAlgGroup(PLLGroups,"Permutation of 2 diagonal corners and 2 edges",
+                "V", "Na", "Nb", "Y");
+        addAlgGroup(PLLGroups,"Cycling 3 corners and 3 edges",
+                "Ga", "Gb", "Gc", "Gd");
     }
 
-    private void AddAlg(ArrayList<Alg> arr, String id, String name, String usedIn, String... entries) {
+    private void addAlg(ArrayList<Alg> arr, String id, String name, String usedIn, String... entries) {
         Alg alg = new Alg(id, name, usedIn);
         for (String entry : entries) {
             alg.Entries.add(entry);
@@ -1361,7 +1387,7 @@ public class AlgDb {
         arr.add(alg);
     }
 
-    private void AddAlgGroup(ArrayList<AlgGroup> arr, String name, String... entries) {
+    private void addAlgGroup(ArrayList<AlgGroup> arr, String name, String... entries) {
         AlgGroup algGroup = new AlgGroup(name);
         for (String entry : entries) {
             algGroup.Entries.add(entry);

@@ -8,11 +8,10 @@ import java.util.ArrayList;
 
 public class AlgGroup {
     public String Name;
-    public ArrayList<String> Entries;
+
+    public ArrayList<String> Entries = new ArrayList<String>();
 
     public AlgGroup(String name) {
         this.Name = name;
-
-        this.Entries = new ArrayList<String>();
     }
 }

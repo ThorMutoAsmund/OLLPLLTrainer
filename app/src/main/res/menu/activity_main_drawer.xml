@@ -5,13 +5,13 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_cfop"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="CFOP" />
+        <item
             android:id="@+id/nav_notations"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Notations" />
-        <item
-            android:id="@+id/nav_f2l"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="F2L" />
         <item
             android:id="@+id/nav_oll"
             android:icon="@drawable/ic_menu_slideshow"
@@ -21,21 +21,21 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="PLL" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Setup" />
+            android:id="@+id/nav_training"
+            android:icon="@drawable/ic_menu_send"
+            android:title="OLL training" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Settings">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_export"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="Export" />
             <item
-                android:id="@+id/nav_contact"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Contact" />
+                android:id="@+id/nav_import"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="Import" />
         </menu>
     </item>
 

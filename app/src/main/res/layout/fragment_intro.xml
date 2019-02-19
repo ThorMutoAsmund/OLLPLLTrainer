@@ -1,13 +1,42 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10sp"
+    android:orientation="vertical"
     tools:context="org.nafai.ollplltrainer.IntroFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:textAlignment="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Welcome to the OLL/PLL trainer" />
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:text="@string/app_name" />
+    <TextView
+        android:textAlignment="center"
+        android:layout_marginTop="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:autoLink="email"
+        android:text="Free to use! Send comments to thorasmund@gmail.com" />
+    <TextView
+        android:textAlignment="center"
+        android:layout_marginTop="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:autoLink="email"
+        android:text="If you want to support the development by sending me algorithms or algorithm groups not included, contact me." />
+    <TextView
+        android:textAlignment="center"
+        android:layout_marginTop="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:autoLink="email"
+        android:text="Use the hamburger menu to get started." />
 
-</FrameLayout>
+</android.support.v7.widget.LinearLayoutCompat>
+

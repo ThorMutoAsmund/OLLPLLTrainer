@@ -1,5 +1,9 @@
 package org.nafai.ollplltrainer;
 
+import android.content.DialogInterface;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,11 +12,19 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /*
 https://chrisrisner.com/Using-Fragments-with-the-Navigation-Drawer-Activity
@@ -20,7 +32,14 @@ https://chrisrisner.com/Using-Fragments-with-the-Navigation-Drawer-Activity
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         IntroFragment.OnFragmentInteractionListener,
-        AlgListFragment.OnFragmentInteractionListener {
+        AlgListFragment.OnFragmentInteractionListener,
+        WebViewFragment.OnFragmentInteractionListener,
+        TrainingIntroFragment.OnFragmentInteractionListener,
+        TrainingFragment.OnFragmentInteractionListener{
+
+    private static final String TAG = "MainActivity";
+
+    public static String PACKAGE_NAME;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +47,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        PACKAGE_NAME = getApplicationContext().getPackageName();
 
         if (savedInstanceState == null) {
             Fragment fragment = null;
@@ -61,7 +82,27 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        /*
+        // Set image
+        try {
+            View headerLayout = navigationView.getHeaderView(0); // 0-index header
+            Bitmap bm = getBitmapFromAsset("logo.png");
+            ImageView i = (ImageView)headerLayout.findViewById(R.id.logo);
+            i.setImageBitmap(bm);
+        } catch (IOException e) {
+            // nothing
+        }*/
     }
+
+    private Bitmap getBitmapFromAsset(String strName) throws IOException
+    {
+        AssetManager assetManager = getAssets();
+        InputStream istr = assetManager.open(strName);
+        Bitmap bitmap = BitmapFactory.decodeStream(istr);
+        return bitmap;
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -73,27 +114,13 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -102,33 +129,65 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         CharSequence notImplementedText = "Not implemented yet";
-        int duration = Toast.LENGTH_SHORT;
 
         Fragment fragment = null;
 
         if (id == R.id.nav_notations) {
-            Toast toast = Toast.makeText(this, notImplementedText, duration);
-            toast.show();
-        } else if (id == R.id.nav_f2l) {
-            Toast toast = Toast.makeText(this, notImplementedText, duration);
-            toast.show();
+            fragment = WebViewFragment.newInstance("file:///android_asset/notations.html");
+        } else if (id == R.id.nav_cfop) {
+            fragment = WebViewFragment.newInstance("file:///android_asset/cfop.html");
         } else if (id == R.id.nav_oll) {
             fragment = AlgListFragment.newInstance(AlgClass.OLL);
         } else if (id == R.id.nav_pll) {
             fragment = AlgListFragment.newInstance(AlgClass.PLL);
-        } else if (id == R.id.nav_share) {
-            Toast toast = Toast.makeText(this, notImplementedText, duration);
-            toast.show();
-        } else if (id == R.id.nav_contact) {
-            Toast toast = Toast.makeText(this, notImplementedText, duration);
-            toast.show();
-        } else if (id == R.id.nav_manage) {
-            Toast toast = Toast.makeText(this, notImplementedText, duration);
-            toast.show();
-            /*
-            Intent intent = new Intent(this, OLLActivity.class);
-            startActivity(intent);
-            */
+        } else if (id == R.id.nav_training) {
+            fragment = TrainingIntroFragment.newInstance();
+            //Toast toast = Toast.makeText(this, notImplementedText, Toast.LENGTH_SHORT);
+            //toast.show();
+        } else if (id == R.id.nav_export) {
+            //Toast toast = Toast.makeText(this, notImplementedText, duration);
+            //toast.show();
+            new AlertDialog.Builder(this).setTitle("Confirm Export")
+                .setMessage("Are you sure you want to export the settings?")
+                .setPositiveButton("YES",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            boolean result = new Prefs(MainActivity.this).exportDefault();
+                            Toast toast = Toast.makeText(MainActivity.this, result ? "Successfully exported settings" : "Export failed", Toast.LENGTH_SHORT);
+                            toast.show();
+                            dialog.dismiss();
+                        }
+                    })
+                .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do nothing
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+        } else if (id == R.id.nav_import) {
+            //Toast toast = Toast.makeText(this, notImplementedText, duration);
+            //toast.show();
+            new AlertDialog.Builder(this).setTitle("Confirm Export")
+                    .setMessage("Are you sure you want to import the settings? This will overwrite your current settings.")
+                    .setPositiveButton("YES",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    boolean result = new Prefs(MainActivity.this).importDefault();
+                                    Toast toast = Toast.makeText(MainActivity.this, result ? "Successfully imported settings" : "Import failed", Toast.LENGTH_SHORT);
+                                    toast.show();
+                                    dialog.dismiss();
+                                }
+                            })
+                    .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Do nothing
+                            dialog.dismiss();
+                        }
+                    })
+                    .show();
         }
 
         if (fragment != null) {

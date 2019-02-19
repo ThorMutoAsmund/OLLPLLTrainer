@@ -10,13 +10,11 @@ public class Alg {
     public String Id;
     public String Names;
     public String UsedIn;
-    public ArrayList<String> Entries;
+    public ArrayList<String> Entries = new ArrayList<String>();
 
     public Alg(String id, String names, String usedIn) {
         this.Id = id;
         this.Names = names;
         this.UsedIn = usedIn;
-
-        this.Entries = new ArrayList<String>();
     }
 }
