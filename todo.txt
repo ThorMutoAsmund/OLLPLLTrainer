@@ -1,0 +1,13 @@
+Edit mode forsvinder ved rotation
+
+Spinner "vælger" en værdi ved opstart
+
+Select alg dialog should show blank entry in top if there is no match on the current alg
+
+A "reset" all alg settings button (one on the OLL page, one on the PLL page)
+
+Check all fragments and dialogfragments and activities, what happens if they are rotated?
+
+Check that the images on this page
+https://www.speedsolving.com/wiki/index.php/OLL
+correspond to the ones I have created
