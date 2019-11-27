@@ -52,6 +52,21 @@ public class WebPageGenerator {
         return this.mDoc;
     }
 
+    public String generateTrainingSets(Context context)
+    {
+        this.mDoc = "";
+        addLine("<html>");
+        addLine("<head>");
+        addLine("</head>");
+        addLine("<body>");
+
+        addLine("<h2>Test</h2>");
+        addLine("</body>");
+        addLine("</html>");
+
+        return this.mDoc;
+    }
+
 
     public String generateTrainingItem(AlgClass algClass, TrainingItem item, Context context) {
         this.mPrefs = new Prefs(context);

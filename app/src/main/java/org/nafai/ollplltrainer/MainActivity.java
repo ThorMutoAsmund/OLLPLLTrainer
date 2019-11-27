@@ -142,8 +142,8 @@ public class MainActivity extends AppCompatActivity
             fragment = AlgListFragment.newInstance(AlgClass.PLL);
         } else if (id == R.id.nav_training) {
             fragment = TrainingIntroFragment.newInstance();
-            //Toast toast = Toast.makeText(this, notImplementedText, Toast.LENGTH_SHORT);
-            //toast.show();
+        } else if (id == R.id.nav_training_sets) {
+            fragment = TrainingSetsFragment.newInstance();
         } else if (id == R.id.nav_export) {
             //Toast toast = Toast.makeText(this, notImplementedText, duration);
             //toast.show();

@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group android:id="@+id/nav_group_1"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_cfop"
             android:icon="@drawable/ic_menu_slideshow"
@@ -12,31 +13,58 @@
             android:id="@+id/nav_notations"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Notations" />
-        <item
-            android:id="@+id/nav_oll"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="OLL" />
-        <item
-            android:id="@+id/nav_pll"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="PLL" />
-        <item
-            android:id="@+id/nav_training"
-            android:icon="@drawable/ic_menu_send"
-            android:title="OLL training" />
     </group>
 
-    <item android:title="Settings">
-        <menu>
-            <item
-                android:id="@+id/nav_export"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="Export" />
-            <item
-                android:id="@+id/nav_import"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="Import" />
-        </menu>
-    </item>
+    <group android:id="@+id/nav_group_2"
+        android:checkableBehavior="single">
+        <item android:title="Reference"
+            android:icon="@drawable/ic_menu_gallery"
+            android:visible="true">
+            <menu android:visible="true">
+                <item
+                    android:id="@+id/nav_oll"
+                    android:icon="@drawable/ic_menu_send"
+                    android:title="OLL" />
+                <item
+                    android:id="@+id/nav_pll"
+                    android:icon="@drawable/ic_menu_send"
+                    android:title="PLL" />
+            </menu>
+        </item>
+    </group>
+
+    <group android:id="@+id/nav_group_3"
+        android:checkableBehavior="single">
+        <item android:title="Training"
+            android:icon="@drawable/ic_menu_gallery"
+            android:visible="true">
+            <menu android:visible="true">
+                <item
+                    android:id="@+id/nav_training"
+                    android:icon="@drawable/ic_menu_send"
+                    android:title="OLL training" />
+            </menu>
+        </item>
+    </group>
+
+    <group android:id="@+id/nav_group_4"
+        android:checkableBehavior="single">
+        <item android:title="Settings">
+            <menu>
+                <item
+                    android:id="@+id/nav_training_sets"
+                    android:icon="@drawable/ic_menu_manage"
+                    android:title="Training sets" />
+                <item
+                    android:id="@+id/nav_export"
+                    android:icon="@drawable/ic_menu_manage"
+                    android:title="Export" />
+                <item
+                    android:id="@+id/nav_import"
+                    android:icon="@drawable/ic_menu_manage"
+                    android:title="Import" />
+            </menu>
+        </item>
+    </group>
 
 </menu>
